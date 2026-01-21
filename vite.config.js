@@ -5,5 +5,5 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   // Wichtig für GitHub Pages (dein Repo-Name)
-  base: "/plottiles/",
+  base: "/PlotTiles/",
 });
