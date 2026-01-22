@@ -39,9 +39,9 @@ import {
 const renderMarkdown = (text) => {
   if (!text) return "";
   return text
-    .replace(/^### (.*$)/gim, '<h3 class="text-xs font-bold mt-1 text-indigo-600">$3</h3>')
-    .replace(/^## (.*$)/gim, '<h2 class="text-sm font-bold mt-2 text-indigo-700">$1</h2>')
-    .replace(/^# (.*$)/gim, '<h1 class="text-base font-bold mt-2 text-indigo-800">$1</h1>')
+    .replace(/^### (.*$)/gim, '<h3 class="text-xs font-bold mt-1">$1</h3>')
+    .replace(/^## (.*$)/gim, '<h2 class="text-sm font-bold mt-2">$1</h2>')
+    .replace(/^# (.*$)/gim, '<h1 class="text-base font-bold mt-2">$1</h1>')
     .replace(/^\* (.*$)/gim, '<li class="ml-2 list-disc">$1</li>')
     .replace(/^\- (.*$)/gim, '<li class="ml-2 list-dash">$1</li>')
     .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
@@ -72,15 +72,15 @@ const decodeState = (encoded) => {
 // ==========================================
 
 const CATEGORIES = [
-  { label: 'Konflikt', bg: 'bg-red-500', shadow: 'shadow-red-500/40' },
-  { label: 'Stimmung', bg: 'bg-blue-600', shadow: 'shadow-blue-600/40' },
-  { label: 'Ort', bg: 'bg-green-600', shadow: 'shadow-green-600/40' },
-  { label: 'Objekt', bg: 'bg-yellow-500', shadow: 'shadow-yellow-500/40' },
-  { label: 'Magie', bg: 'bg-purple-600', shadow: 'shadow-purple-600/40' },
-  { label: 'Charakter', bg: 'bg-orange-500', shadow: 'shadow-orange-500/40' },
-  { label: 'Twist', bg: 'bg-teal-500', shadow: 'shadow-teal-500/40' },
-  { label: 'Soziales', bg: 'bg-pink-500', shadow: 'shadow-pink-500/40' },
-  { label: 'Wissen', bg: 'bg-indigo-600', shadow: 'shadow-indigo-600/40' },
+  { label: 'Konflikt', bg: 'bg-red-500', text: 'text-red-400', shadow: 'shadow-red-500/40' },
+  { label: 'Stimmung', bg: 'bg-blue-600', text: 'text-blue-400', shadow: 'shadow-blue-600/40' },
+  { label: 'Ort', bg: 'bg-green-600', text: 'text-green-400', shadow: 'shadow-green-600/40' },
+  { label: 'Objekt', bg: 'bg-yellow-500', text: 'text-yellow-400', shadow: 'shadow-yellow-500/40' },
+  { label: 'Magie', bg: 'bg-purple-600', text: 'text-purple-400', shadow: 'shadow-purple-600/40' },
+  { label: 'Charakter', bg: 'bg-orange-500', text: 'text-orange-400', shadow: 'shadow-orange-500/40' },
+  { label: 'Twist', bg: 'bg-teal-500', text: 'text-teal-400', shadow: 'shadow-teal-500/40' },
+  { label: 'Soziales', bg: 'bg-pink-500', text: 'text-pink-400', shadow: 'shadow-pink-500/40' },
+  { label: 'Wissen', bg: 'bg-indigo-600', text: 'text-indigo-400', shadow: 'shadow-indigo-600/40' },
 ];
 
 const SETTINGS_TAGS = [
@@ -789,11 +789,11 @@ const App = () => {
                 <SafeIcon icon={STORY_ICONS[activeTooltipDie.iconIndex].icon} size={20} />
               </div>
               <div className="text-left">
-                <div className="text-[10px] font-black uppercase text-indigo-300 tracking-widest">{activeTooltipDie.category.label}</div>
+                <div className={`text-[10px] font-black uppercase tracking-widest ${activeTooltipDie.category.text}`}>{activeTooltipDie.category.label}</div>
                 <div className="text-xs font-bold text-white uppercase">{STORY_ICONS[activeTooltipDie.iconIndex].name}</div>
               </div>
             </div>
-            <div className="prose-tooltip text-sm text-white leading-relaxed font-semibold text-left" dangerouslySetInnerHTML={{ __html: renderMarkdown(activeTooltipDie.note) }} />
+            <div className={`prose-tooltip text-sm ${activeTooltipDie.category.text} leading-relaxed font-semibold text-left`} dangerouslySetInnerHTML={{ __html: renderMarkdown(activeTooltipDie.note) }} />
           </div>
         </div>
       )}
@@ -1012,7 +1012,7 @@ const App = () => {
         .animate-roll { animation: roll 0.25s infinite ease-in-out; }
 
         /* Tooltip Contrast Overrides */
-        .prose-tooltip h1, .prose-tooltip h2, .prose-tooltip h3 { color: #e0e7ff !important; margin-top: 0.5rem; margin-bottom: 0.25rem; }
+        .prose-tooltip h1, .prose-tooltip h2, .prose-tooltip h3 { color: inherit !important; margin-top: 0.5rem; margin-bottom: 0.25rem; opacity: 0.9; }
         .prose-tooltip strong { color: #ffffff; }
       `}</style>
     </div>
