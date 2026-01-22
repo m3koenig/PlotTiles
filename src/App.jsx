@@ -26,7 +26,7 @@ import {
   Sprout, Stethoscope, StickyNote, Table, Tablet, Tag, Target, Tent, Terminal, Thermometer,
   ThumbsDown, ThumbsUp, Ticket, Timer, Tornado, Train, Trash, Trophy, Truck, Tv, Users,
   Video, Wallet, Waves, Webcam, Wifi, Wine,
-  Bold, Italic, Heading1, Heading2, Layout, Sparkles, Copy
+  Bold, Italic, Heading1, Heading2, Layout, Sparkles, Copy, Link as LinkIcon
 } from 'lucide-react';
 
 // ==========================================
@@ -252,7 +252,10 @@ const App = () => {
   const initDice = useCallback(() => {
     const params = new URLSearchParams(window.location.search);
     const urlSeed = params.get('seed');
+
+    // Check if seed exists in URL and load it
     if (urlSeed) {
+      setSeedInput(urlSeed); // Set text field directly
       const decoded = decodeState(urlSeed);
       if (decoded && Array.isArray(decoded)) {
         setDice(decoded);
@@ -397,7 +400,7 @@ const App = () => {
       }
     } catch (err) { 
       console.error("Error copying seed: ", err);
-    }
+}
     document.body.removeChild(textArea);
   };
 
@@ -425,7 +428,7 @@ const App = () => {
 
     setTimeout(() => {
       setDice(prevDice => {
-        // Nur verfügbare Kategorien (nicht gesperrte) neu mischen
+      // Nur verfügbare Kategorien (nicht gesperrte) neu mischen
         const lockedCategoriesLabels = prevDice.filter(d => d.locked).map(d => d.category.label);
         const availableCategories = CATEGORIES.filter(c => !lockedCategoriesLabels.includes(c.label));
         const shuffledAvailableCategories = shuffleArray(availableCategories);
@@ -496,7 +499,7 @@ const App = () => {
     const blob = new Blob([JSON.stringify(dice, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `plot-tiles-v4-81-0.json`;
+    link.download = `plot-tiles-v4-82-0.json`;
     link.click();
     setIsMenuOpen(false);
   };
@@ -540,7 +543,7 @@ const App = () => {
       <header className="w-full max-w-2xl flex justify-between items-center mb-8 mt-6 px-4 text-left">
         <div className="text-left">
           <h1 className="text-4xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white to-slate-500 uppercase leading-none">Plot Tiles</h1>
-          <p className="text-slate-400 text-sm font-bold tracking-widest uppercase mt-2">v4.81.0 • Sternenwächter</p>
+          <p className="text-slate-400 text-sm font-bold tracking-widest uppercase mt-2">v4.82.0 • Sternenwächter</p>
         </div>
         <button
           onClick={() => setIsMenuOpen(true)}
@@ -577,6 +580,7 @@ const App = () => {
                   <Check size={16} /> Seed Laden
                 </button>
               </div>
+              <p className="text-[8px] text-slate-600 uppercase font-bold tracking-tighter">Du kannst den Seed auch per URL laden: ?seed=CODE</p>
             </div>
 
             <div className="flex flex-col gap-3 text-left">
@@ -608,7 +612,7 @@ const App = () => {
             </div>
 
             <div className="mt-auto pt-6 border-t border-slate-800 text-center">
-              <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-loose text-left">v4.81.0 • Plot Tiles Engine</p>
+              <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-loose text-left">v4.82.0 • Plot Tiles Engine</p>
             </div>
           </div>
         </>
@@ -860,7 +864,7 @@ const App = () => {
       </div>
 
       {/* GLOBAL FOOTER */}
-      <footer className="mt-auto py-12 text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase text-center opacity-50 text-left">v4.81.0 • Plot Tiles • Sternenwächter</footer>
+      <footer className="mt-auto py-12 text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase text-center opacity-50 text-left">v4.82.0 • Plot Tiles • Sternenwächter</footer>
 
       {/* CSS STYLES & ANIMATIONS */}
       <style>{`
