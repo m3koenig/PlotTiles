@@ -178,6 +178,10 @@ const SafeIcon = ({ icon, size, className, strokeWidth }) => {
   return React.createElement(icon, { size, className, strokeWidth });
 };
 
+const isMobile = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 const App = () => {
   const [dice, setDice] = useState([]);
   const [isRolling, setIsRolling] = useState(false);
@@ -541,6 +545,13 @@ const App = () => {
               ${hoveredDieId === die.id ? 'z-[60] scale-150' : 'z-0 scale-100'}`} 
             onMouseEnter={() => setHoveredDieId(die.id)} 
             onMouseLeave={() => setHoveredDieId(null)}
+            onClick={(e) => { 
+              if (isMobile() && !e.target.closest('.control-btn')) {
+                e.stopPropagation(); 
+                setHoveredDieId(die.id); 
+                setTimeout(() => setHoveredDieId(null), 3000); 
+              }
+            }}
           >
             <div 
               className={`relative w-full h-full transition-transform duration-500 preserve-3d cursor-pointer shadow-2xl 
