@@ -26,7 +26,7 @@ import {
   Sprout, Stethoscope, StickyNote, Table, Tablet, Tag, Target, Tent, Terminal, Thermometer,
   ThumbsDown, ThumbsUp, Ticket, Timer, Tornado, Train, Trash, Trophy, Truck, Tv, Users,
   Video, Wallet, Waves, Webcam, Wifi, Wine,
-  Bold, Italic, Heading1, Heading2, Layout, Sparkles
+  Bold, Italic, Heading1, Heading2, Layout, Sparkles, Copy
 } from 'lucide-react';
 
 // ==========================================
@@ -50,11 +50,22 @@ const renderMarkdown = (text) => {
 };
 
 /**
- * Prüft auf Mobilgeräte für Touch-spezifisches Verhalten
+ * Seed Encoding / Decoding
  */
-const isMobile = () => {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
+const encodeState = (state) => {
+  try {
+    const json = JSON.stringify(state);
+    return btoa(unescape(encodeURIComponent(json)));
+  } catch (e) { return ""; }
+};
+
+const decodeState = (encoded) => {
+  try {
+    if (!encoded) return null;
+    const json = decodeURIComponent(escape(atob(encoded.trim())));
+    return JSON.parse(json);
+  } catch (e) { return null; }
+};
 
 // ==========================================
 // 2. STATISCHE DATEN (Kategorien, Icons, Tags)
@@ -216,6 +227,7 @@ const App = () => {
   const [showGenres, setShowGenres] = useState(false);
   const [isMdPreview, setIsMdPreview] = useState(false);
   const [customAudioUrl, setCustomAudioUrl] = useState(null);
+  const [seedInput, setSeedInput] = useState("");
 
   // --- REFS ---
   const fileInputRef = useRef(null);
@@ -235,9 +247,19 @@ const App = () => {
   };
 
   /**
-   * Initialisiert das Spielbrett mit zufälligen Werten
+   * Initialisiert das Spielbrett
    */
   const initDice = useCallback(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlSeed = params.get('seed');
+    if (urlSeed) {
+      const decoded = decodeState(urlSeed);
+      if (decoded && Array.isArray(decoded)) {
+        setDice(decoded);
+        return;
+      }
+    }
+
     const allIndices = Array.from({ length: STORY_ICONS.length }, (_, i) => i);
     const shuffledIndices = shuffleArray(allIndices);
     const shuffledCategories = shuffleArray(CATEGORIES);
@@ -358,6 +380,39 @@ const App = () => {
     }
   }, [customAudioUrl]);
 
+  // --- SEED HANDLING ---
+  const copyCurrentSeed = () => {
+    const seed = encodeState(dice);
+    const textArea = document.createElement("textarea");
+    textArea.value = seed;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      if (document.execCommand('copy')) {
+        setSeedInput("SEED KOPIERT!");
+        setTimeout(() => setSeedInput(seed), 2000);
+      }
+    } catch (err) { 
+      console.error("Error copying seed: ", err);
+    }
+    document.body.removeChild(textArea);
+  };
+
+  const handleLoadFromSeed = () => {
+    if (!seedInput) return;
+    const decoded = decodeState(seedInput);
+    if (decoded && Array.isArray(decoded)) {
+      setDice(decoded);
+      setIsMenuOpen(false);
+    } else {
+      setSeedInput("UNGÜLTIGER CODE!");
+      setTimeout(() => setSeedInput(""), 1500);
+    }
+  };
+
   // --- CORE GAME ACTIONS ---
 
   /**
@@ -370,7 +425,7 @@ const App = () => {
 
     setTimeout(() => {
       setDice(prevDice => {
-        // Bugfix: Nur verfügbare Kategorien (nicht gesperrte) neu mischen
+        // Nur verfügbare Kategorien (nicht gesperrte) neu mischen
         const lockedCategoriesLabels = prevDice.filter(d => d.locked).map(d => d.category.label);
         const availableCategories = CATEGORIES.filter(c => !lockedCategoriesLabels.includes(c.label));
         const shuffledAvailableCategories = shuffleArray(availableCategories);
@@ -441,7 +496,7 @@ const App = () => {
     const blob = new Blob([JSON.stringify(dice, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `plot-tiles-v4-66-0.json`;
+    link.download = `plot-tiles-v4-81-0.json`;
     link.click();
     setIsMenuOpen(false);
   };
@@ -485,7 +540,7 @@ const App = () => {
       <header className="w-full max-w-2xl flex justify-between items-center mb-8 mt-6 px-4 text-left">
         <div className="text-left">
           <h1 className="text-4xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white to-slate-500 uppercase leading-none">Plot Tiles</h1>
-          <p className="text-slate-400 text-sm font-bold tracking-widest uppercase mt-2">v4.66.0 • Sternenwächter</p>
+          <p className="text-slate-400 text-sm font-bold tracking-widest uppercase mt-2">v4.81.0 • Sternenwächter</p>
         </div>
         <button
           onClick={() => setIsMenuOpen(true)}
@@ -499,10 +554,29 @@ const App = () => {
       {isMenuOpen && (
         <>
           <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[700]" onClick={() => setIsMenuOpen(false)} />
-          <div className="fixed top-0 right-0 h-full w-72 bg-slate-900 border-l border-slate-800 z-[701] shadow-2xl p-6 flex flex-col gap-8 text-left">
+          <div className="fixed top-0 right-0 h-full w-80 bg-slate-900 border-l border-slate-800 z-[701] shadow-2xl p-6 flex flex-col gap-8 text-left overflow-y-auto">
             <div className="flex justify-between items-center text-left">
               <h2 className="text-xl font-black uppercase tracking-widest text-indigo-400">Menü</h2>
               <button onClick={() => setIsMenuOpen(false)} className="p-2 hover:bg-slate-800 rounded-lg"><X size={20} /></button>
+            </div>
+
+            {/* SEED AREA */}
+            <div className="flex flex-col gap-3">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Seed System</p>
+              <button onClick={copyCurrentSeed} className="w-full py-4 bg-slate-800 rounded-2xl text-xs font-black uppercase hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
+                <Copy size={16} /> Seed kopieren
+              </button>
+              <div className="relative mt-2 flex flex-col gap-2">
+                <textarea
+                  className="w-full p-4 bg-slate-950 border border-slate-800 rounded-2xl text-[9px] font-mono focus:outline-none focus:border-indigo-500 min-h-[80px] resize-none"
+                  placeholder="Code hier einfügen zum Laden..."
+                  value={seedInput}
+                  onChange={(e) => setSeedInput(e.target.value)}
+                />
+                <button onClick={handleLoadFromSeed} className="w-full py-3 bg-indigo-600 rounded-xl text-xs font-black uppercase hover:bg-indigo-500 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20">
+                  <Check size={16} /> Seed Laden
+                </button>
+              </div>
             </div>
 
             <div className="flex flex-col gap-3 text-left">
@@ -534,7 +608,7 @@ const App = () => {
             </div>
 
             <div className="mt-auto pt-6 border-t border-slate-800 text-center">
-              <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-loose text-left">v4.66.0 • Plot Tiles Engine</p>
+              <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-loose text-left">v4.81.0 • Plot Tiles Engine</p>
             </div>
           </div>
         </>
@@ -786,7 +860,7 @@ const App = () => {
       </div>
 
       {/* GLOBAL FOOTER */}
-      <footer className="mt-auto py-12 text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase text-center opacity-50 text-left">v4.66.0 • Plot Tiles • Sternenwächter</footer>
+      <footer className="mt-auto py-12 text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase text-center opacity-50 text-left">v4.81.0 • Plot Tiles • Sternenwächter</footer>
 
       {/* CSS STYLES & ANIMATIONS */}
       <style>{`
