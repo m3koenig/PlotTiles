@@ -30,6 +30,14 @@ import {
 } from 'lucide-react';
 
 // ==========================================
+// 0. GLOBALE KONSTANTEN
+// ==========================================
+
+const APP_NAME = "Plot Tiles";
+const APP_VERSION = "v4.84.1";
+const VERSION_NAME = "Pfad der Genres";
+
+// ==========================================
 // 1. HILFSFUNKTIONEN & UTILS
 // ==========================================
 
@@ -619,7 +627,7 @@ const App = () => {
     const blob = new Blob([JSON.stringify(dice, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `plot-tiles-v4-84-1.json`;
+    link.download = `${APP_NAME.toLowerCase().replace(/\s+/g, '-')}-${APP_VERSION}.json`;
     link.click();
     setIsMenuOpen(false);
   };
@@ -662,8 +670,8 @@ const App = () => {
       {/* HEADER SECTION */}
       <header className="w-full max-w-2xl flex justify-between items-center mb-8 mt-6 px-4 text-left">
         <div className="text-left">
-          <h1 className="text-4xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white to-slate-500 uppercase leading-none">Plot Tiles</h1>
-          <p className="text-slate-400 text-sm font-bold tracking-widest uppercase mt-2">v4.84.1 • Pfad der Genres</p>
+          <h1 className="text-4xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white to-slate-500 uppercase leading-none">{APP_NAME}</h1>
+          <p className="text-slate-400 text-sm font-bold tracking-widest uppercase mt-2">{APP_VERSION} • {VERSION_NAME}</p>
         </div>
         <div className="flex gap-2">
           <button
@@ -736,12 +744,12 @@ const App = () => {
               <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 text-left">Information</p>
               <button onClick={() => { setShowIntro(true); setIsMenuOpen(false); }} className="flex items-center gap-3 w-full p-4 bg-slate-800 rounded-2xl hover:bg-slate-700 transition-all text-left group">
                 <Info size={20} className="text-slate-400 group-hover:text-white" />
-                <span className="text-sm font-bold">Was ist Plot Tiles?</span>
+                <span className="text-sm font-bold">Was ist {APP_NAME}?</span>
               </button>
             </div>
 
             <div className="mt-auto pt-6 border-t border-slate-800 text-center">
-              <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-loose text-left">v4.84.1 • Plot Tiles Engine</p>
+              <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-loose text-left">{APP_VERSION} • {APP_NAME} Engine</p>
             </div>
           </div>
         </>
@@ -754,7 +762,7 @@ const App = () => {
           <div className="relative max-w-lg w-full bg-slate-900 border border-slate-800 p-8 rounded-[3rem] shadow-[0_32px_64px_rgba(0,0,0,0.5)] animate-in fade-in zoom-in-95 slide-in-from-bottom-10 text-left">
             <div className="flex justify-between items-center mb-6 text-left">
               <h3 className="text-2xl font-black uppercase tracking-widest text-indigo-400 flex items-center gap-2 text-left">
-                <Sparkles className="text-indigo-400" size={24} /> Plot Tiles
+                <Sparkles className="text-indigo-400" size={24} /> {APP_NAME}
               </h3>
               <button onClick={() => setShowIntro(false)} className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition-colors">
                 <X size={20} className="text-slate-400" />
@@ -763,7 +771,7 @@ const App = () => {
 
             <div className="space-y-6 text-slate-300 font-medium leading-relaxed text-sm md:text-base text-left">
               <p>
-                <strong className="text-white">Plot Tiles</strong> ist deine digitale Schreibwerkstatt.
+                <strong className="text-white">{APP_NAME}</strong> ist deine digitale Schreibwerkstatt.
               </p>
               <p>
                 Nutze den <strong className="text-indigo-400">Langen Klick</strong> auf eine Kachel, um Details einzusehen. Auf dem Desktop öffnet ein <strong className="text-indigo-400">Doppelklick</strong> den großen Editor.
@@ -783,7 +791,7 @@ const App = () => {
       {/* TOOLTIP OVERLAY (LONG PRESS / HOVER) */}
       {activeTooltipDie && !activeTooltipDie.flipped && activeTooltipDie.note && !zoomId && (
         <div className="fixed inset-0 pointer-events-none z-[400] flex items-center justify-center p-4">
-          <div className="w-full max-w-sm p-6 bg-slate-900/95 backdrop-blur-2xl border border-indigo-500/30 rounded-[2.5rem] shadow-2xl transform -translate-y-32 text-left">
+          <div className="w-full max-sm p-6 bg-slate-900/95 backdrop-blur-2xl border border-indigo-500/30 rounded-[2.5rem] shadow-2xl transform -translate-y-32 text-left">
             <div className="flex items-center gap-4 mb-4 pb-4 border-b border-white/5 text-left">
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white ${activeTooltipDie.category.bg}`}>
                 <SafeIcon icon={STORY_ICONS[activeTooltipDie.iconIndex].icon} size={20} />
@@ -993,7 +1001,7 @@ const App = () => {
       </div>
 
       {/* GLOBAL FOOTER */}
-      <footer className="mt-auto py-12 text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase text-center opacity-50 text-left">v4.84.1 • Plot Tiles • Pfad der Genres</footer>
+      <footer className="mt-auto py-12 text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase text-center opacity-50 text-left">{APP_VERSION} • {APP_NAME} • {VERSION_NAME}</footer>
 
       {/* CSS STYLES & ANIMATIONS */}
       <style>{`
