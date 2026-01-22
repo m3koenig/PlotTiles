@@ -39,7 +39,7 @@ import {
 const renderMarkdown = (text) => {
   if (!text) return "";
   return text
-    .replace(/^### (.*$)/gim, '<h3 class="text-xs font-bold mt-1 text-indigo-600">$1</h3>')
+    .replace(/^### (.*$)/gim, '<h3 class="text-xs font-bold mt-1 text-indigo-600">$3</h3>')
     .replace(/^## (.*$)/gim, '<h2 class="text-sm font-bold mt-2 text-indigo-700">$1</h2>')
     .replace(/^# (.*$)/gim, '<h1 class="text-base font-bold mt-2 text-indigo-800">$1</h1>')
     .replace(/^\* (.*$)/gim, '<li class="ml-2 list-disc">$1</li>')
@@ -619,7 +619,7 @@ const App = () => {
     const blob = new Blob([JSON.stringify(dice, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `plot-tiles-v4-84-0.json`;
+    link.download = `plot-tiles-v4-84-1.json`;
     link.click();
     setIsMenuOpen(false);
   };
@@ -663,7 +663,7 @@ const App = () => {
       <header className="w-full max-w-2xl flex justify-between items-center mb-8 mt-6 px-4 text-left">
         <div className="text-left">
           <h1 className="text-4xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white to-slate-500 uppercase leading-none">Plot Tiles</h1>
-          <p className="text-slate-400 text-sm font-bold tracking-widest uppercase mt-2">v4.84.0 • Pfad der Genres</p>
+          <p className="text-slate-400 text-sm font-bold tracking-widest uppercase mt-2">v4.84.1 • Pfad der Genres</p>
         </div>
         <div className="flex gap-2">
           <button
@@ -741,7 +741,7 @@ const App = () => {
             </div>
 
             <div className="mt-auto pt-6 border-t border-slate-800 text-center">
-              <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-loose text-left">v4.84.0 • Plot Tiles Engine</p>
+              <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-loose text-left">v4.84.1 • Plot Tiles Engine</p>
             </div>
           </div>
         </>
@@ -789,11 +789,11 @@ const App = () => {
                 <SafeIcon icon={STORY_ICONS[activeTooltipDie.iconIndex].icon} size={20} />
               </div>
               <div className="text-left">
-                <div className="text-[10px] font-black uppercase text-indigo-400 tracking-widest">{activeTooltipDie.category.label}</div>
+                <div className="text-[10px] font-black uppercase text-indigo-300 tracking-widest">{activeTooltipDie.category.label}</div>
                 <div className="text-xs font-bold text-white uppercase">{STORY_ICONS[activeTooltipDie.iconIndex].name}</div>
               </div>
             </div>
-            <div className="prose-tooltip text-sm text-slate-200 leading-relaxed font-medium text-left" dangerouslySetInnerHTML={{ __html: renderMarkdown(activeTooltipDie.note) }} />
+            <div className="prose-tooltip text-sm text-white leading-relaxed font-semibold text-left" dangerouslySetInnerHTML={{ __html: renderMarkdown(activeTooltipDie.note) }} />
           </div>
         </div>
       )}
@@ -993,7 +993,7 @@ const App = () => {
       </div>
 
       {/* GLOBAL FOOTER */}
-      <footer className="mt-auto py-12 text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase text-center opacity-50 text-left">v4.84.0 • Plot Tiles • Pfad der Genres</footer>
+      <footer className="mt-auto py-12 text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase text-center opacity-50 text-left">v4.84.1 • Plot Tiles • Pfad der Genres</footer>
 
       {/* CSS STYLES & ANIMATIONS */}
       <style>{`
@@ -1010,6 +1010,10 @@ const App = () => {
           100% { transform: translateY(0) rotateX(0) rotateY(0); }
         }
         .animate-roll { animation: roll 0.25s infinite ease-in-out; }
+
+        /* Tooltip Contrast Overrides */
+        .prose-tooltip h1, .prose-tooltip h2, .prose-tooltip h3 { color: #e0e7ff !important; margin-top: 0.5rem; margin-bottom: 0.25rem; }
+        .prose-tooltip strong { color: #ffffff; }
       `}</style>
     </div>
   );
