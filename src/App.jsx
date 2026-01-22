@@ -26,7 +26,7 @@ import {
   Sprout, Stethoscope, StickyNote, Table, Tablet, Tag, Target, Tent, Terminal, Thermometer,
   ThumbsDown, ThumbsUp, Ticket, Timer, Tornado, Train, Trash, Trophy, Truck, Tv, Users,
   Video, Wallet, Waves, Webcam, Wifi, Wine,
-  Bold, Italic, Heading1, Heading2, Layout, Sparkles, Copy, Link as LinkIcon
+  Bold, Italic, Heading1, Heading2, Layout, Sparkles, Copy, Link as LinkIcon, Share2
 } from 'lucide-react';
 
 // ==========================================
@@ -228,6 +228,7 @@ const App = () => {
   const [isMdPreview, setIsMdPreview] = useState(false);
   const [customAudioUrl, setCustomAudioUrl] = useState(null);
   const [seedInput, setSeedInput] = useState("");
+  const [copyFeedback, setCopyFeedback] = useState(false);
 
   // --- REFS ---
   const fileInputRef = useRef(null);
@@ -383,7 +384,29 @@ const App = () => {
     }
   }, [customAudioUrl]);
 
-  // --- SEED HANDLING ---
+  // --- SEED & SHARING HANDLING ---
+
+  const copyShareLink = () => {
+    const seed = encodeState(dice);
+    const shareUrl = `${window.location.origin}${window.location.pathname}?seed=${seed}`;
+
+    const textArea = document.createElement("textarea");
+    textArea.value = shareUrl;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      setCopyFeedback(true);
+      setTimeout(() => setCopyFeedback(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy link", err);
+    }
+    document.body.removeChild(textArea);
+  };
+
   const copyCurrentSeed = () => {
     const seed = encodeState(dice);
     const textArea = document.createElement("textarea");
@@ -499,7 +522,7 @@ const App = () => {
     const blob = new Blob([JSON.stringify(dice, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `plot-tiles-v4-82-0.json`;
+    link.download = `plot-tiles-v4-83-0.json`;
     link.click();
     setIsMenuOpen(false);
   };
@@ -543,14 +566,23 @@ const App = () => {
       <header className="w-full max-w-2xl flex justify-between items-center mb-8 mt-6 px-4 text-left">
         <div className="text-left">
           <h1 className="text-4xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white to-slate-500 uppercase leading-none">Plot Tiles</h1>
-          <p className="text-slate-400 text-sm font-bold tracking-widest uppercase mt-2">v4.82.0 • Sternenwächter</p>
+          <p className="text-slate-400 text-sm font-bold tracking-widest uppercase mt-2">v4.83.0 • Sternenwächter</p>
         </div>
-        <button
-          onClick={() => setIsMenuOpen(true)}
-          className="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition-colors shadow-lg"
-        >
-          <Menu size={24} className="text-slate-300" />
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={copyShareLink}
+            className="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition-all shadow-lg text-slate-300 active:scale-95"
+            title="Link teilen"
+          >
+            {copyFeedback ? <Check size={24} className="text-green-500 animate-in zoom-in" /> : <Share2 size={24} />}
+          </button>
+          <button
+            onClick={() => setIsMenuOpen(true)}
+            className="p-3 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 transition-colors shadow-lg"
+          >
+            <Menu size={24} className="text-slate-300" />
+          </button>
+        </div>
       </header>
 
       {/* OVERLAY: MAIN MENU (DRAWER) */}
@@ -612,7 +644,7 @@ const App = () => {
             </div>
 
             <div className="mt-auto pt-6 border-t border-slate-800 text-center">
-              <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-loose text-left">v4.82.0 • Plot Tiles Engine</p>
+              <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-loose text-left">v4.83.0 • Plot Tiles Engine</p>
             </div>
           </div>
         </>
@@ -864,7 +896,7 @@ const App = () => {
       </div>
 
       {/* GLOBAL FOOTER */}
-      <footer className="mt-auto py-12 text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase text-center opacity-50 text-left">v4.82.0 • Plot Tiles • Sternenwächter</footer>
+      <footer className="mt-auto py-12 text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase text-center opacity-50 text-left">v4.83.0 • Plot Tiles • Sternenwächter</footer>
 
       {/* CSS STYLES & ANIMATIONS */}
       <style>{`
