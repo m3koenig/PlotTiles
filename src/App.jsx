@@ -72,15 +72,15 @@ const decodeState = (encoded) => {
 // ==========================================
 
 const CATEGORIES = [
-  { label: 'Konflikt', bg: 'bg-red-500', shadow: 'shadow-red-500/40', defaultGenres: ['horror', 'noir'] },
-  { label: 'Stimmung', bg: 'bg-blue-600', shadow: 'shadow-blue-600/40', defaultGenres: ['scifi', 'noir'] },
-  { label: 'Ort', bg: 'bg-green-600', shadow: 'shadow-green-600/40', defaultGenres: ['fantasy', 'west'] },
-  { label: 'Objekt', bg: 'bg-yellow-500', shadow: 'shadow-yellow-500/40', defaultGenres: ['fantasy', 'noir'] },
-  { label: 'Magie', bg: 'bg-purple-600', shadow: 'shadow-purple-600/40', defaultGenres: ['fantasy', 'space'] },
-  { label: 'Charakter', bg: 'bg-orange-500', shadow: 'shadow-orange-500/40', defaultGenres: ['noir', 'west'] },
-  { label: 'Twist', bg: 'bg-teal-500', shadow: 'shadow-teal-500/40', defaultGenres: ['scifi', 'space'] },
-  { label: 'Soziales', bg: 'bg-pink-500', shadow: 'shadow-pink-500/40', defaultGenres: ['noir', 'fantasy'] },
-  { label: 'Wissen', bg: 'bg-indigo-600', shadow: 'shadow-indigo-600/40', defaultGenres: ['scifi', 'horror'] },
+  { label: 'Konflikt', bg: 'bg-red-500', shadow: 'shadow-red-500/40' },
+  { label: 'Stimmung', bg: 'bg-blue-600', shadow: 'shadow-blue-600/40' },
+  { label: 'Ort', bg: 'bg-green-600', shadow: 'shadow-green-600/40' },
+  { label: 'Objekt', bg: 'bg-yellow-500', shadow: 'shadow-yellow-500/40' },
+  { label: 'Magie', bg: 'bg-purple-600', shadow: 'shadow-purple-600/40' },
+  { label: 'Charakter', bg: 'bg-orange-500', shadow: 'shadow-orange-500/40' },
+  { label: 'Twist', bg: 'bg-teal-500', shadow: 'shadow-teal-500/40' },
+  { label: 'Soziales', bg: 'bg-pink-500', shadow: 'shadow-pink-500/40' },
+  { label: 'Wissen', bg: 'bg-indigo-600', shadow: 'shadow-indigo-600/40' },
 ];
 
 const SETTINGS_TAGS = [
@@ -93,97 +93,188 @@ const SETTINGS_TAGS = [
 ];
 
 const STORY_ICONS = [
-  { name: 'Schwert', icon: Sword }, { name: 'Schild', icon: Shield },
-  { name: 'Geist', icon: Ghost }, { name: 'Burg', icon: Castle },
-  { name: 'Berg', icon: Mountain }, { name: 'Wald', icon: Trees },
-  { name: 'Feuer', icon: Flame }, { name: 'Totenkopf', icon: Skull },
-  { name: 'Trank', icon: FlaskConical }, { name: 'Schlüssel', icon: Key },
-  { name: 'Karte', icon: MapIcon }, { name: 'Kompass', icon: Compass },
-  { name: 'Sonne', icon: Sun }, { name: 'Mond', icon: Moon },
-  { name: 'Blitz', icon: Zap }, { name: 'Vogel', icon: Bird },
-  { name: 'Fisch', icon: Fish }, { name: 'Spur', icon: Footprints },
-  { name: 'Wolke', icon: Cloud }, { name: 'Schnee', icon: Snowflake },
-  { name: 'Herz', icon: Heart }, { name: 'Gehirn', icon: Brain },
-  { name: 'Anker', icon: Anchor }, { name: 'Hammer', icon: Hammer },
-  { name: 'Buch', icon: Book }, { name: 'Auge', icon: Eye },
-  { name: 'Edelstein', icon: Gem }, { name: 'Geschenk', icon: Gift },
-  { name: 'Bombe', icon: Bomb }, { name: 'Käfer', icon: Bug },
-  { name: 'Gewitter', icon: CloudLightning }, { name: 'Krone', icon: Crown },
-  { name: 'Hund', icon: Dog }, { name: 'Tropfen', icon: Droplets },
-  { name: 'Feder', icon: Feather }, { name: 'Hand', icon: Hand },
-  { name: 'Blatt', icon: Leaf }, { name: 'Magnet', icon: Magnet },
-  { name: 'Rakete', icon: Rocket }, { name: 'Muschel', icon: Shell },
-  { name: 'Stern', icon: Star }, { name: 'Schirm', icon: Umbrella },
-  { name: 'Uhr', icon: Watch }, { name: 'Wind', icon: Wind },
-  { name: 'Axt', icon: Axe }, { name: 'Ambulanz', icon: Ambulance },
-  { name: 'Baby', icon: Baby }, { name: 'Banane', icon: Banana },
-  { name: 'Bier', icon: Beer }, { name: 'Glocke', icon: Bell },
-  { name: 'Gefahr', icon: Biohazard }, { name: 'Knochen', icon: Bone },
-  { name: 'Koffer', icon: Briefcase }, { name: 'Foto', icon: Camera },
-  { name: 'Auto', icon: Car }, { name: 'Katze', icon: Cat },
-  { name: 'Kirsche', icon: Cherry }, { name: 'Film', icon: Clapperboard },
-  { name: 'Zeit', icon: Clock }, { name: 'Kaffee', icon: Coffee },
-  { name: 'Münzen', icon: Coins }, { name: 'Baustelle', icon: Construction },
-  { name: 'Keks', icon: Cookie }, { name: 'Technik', icon: Cpu },
-  { name: 'Ziel', icon: Crosshair }, { name: 'DNA', icon: Dna },
-  { name: 'Tür', icon: DoorOpen }, { name: 'Trommel', icon: Drum },
-  { name: 'Sport', icon: Dumbbell }, { name: 'Ei', icon: Egg },
-  { name: 'Fabrik', icon: Factory }, { name: 'Rummel', icon: FerrisWheel },
-  { name: 'Dokument', icon: FileText }, { name: 'Flagge', icon: Flag },
-  { name: 'Taschenlampe', icon: Flashlight }, { name: 'Blume', icon: Flower },
-  { name: 'Essen', icon: ForkKnife }, { name: 'Trauer', icon: Frown },
-  { name: 'Tanken', icon: Fuel }, { name: 'Gaming', icon: Gamepad2 },
-  { name: 'Urteil', icon: Gavel }, { name: 'Brille', icon: Glasses },
-  { name: 'Welt', icon: Globe }, { name: 'Traube', icon: Grape },
-  { name: 'Gitarre', icon: Guitar }, { name: 'Pakt', icon: Handshake },
-  { name: 'Musik', icon: Headphones }, { name: 'Vergangenheit', icon: History },
-  { name: 'Zuhause', icon: Home }, { name: 'Krankenhaus', icon: Hospital },
-  { name: 'Hotel', icon: Hotel }, { name: 'Eis', icon: IceCream },
-  { name: 'Bild', icon: Image }, { name: 'Unendlich', icon: Infinity },
-  { name: 'Spielen', icon: Joystick }, { name: 'Tippen', icon: Keyboard },
-  { name: 'Licht', icon: Lamp }, { name: 'Denkmal', icon: Landmark },
-  { name: 'Laptop', icon: Laptop }, { name: 'Einfangen', icon: Lasso },
-  { name: 'Wissen', icon: LibraryIcon }, { name: 'Rettung', icon: LifeBuoy },
-  { name: 'Idee', icon: LightbulbIcon }, { name: 'Reise', icon: Luggage },
-  { name: 'Brief', icon: Mail }, { name: 'Standort', icon: MapPin },
-  { name: 'Medaille', icon: Medal }, { name: 'Durchsage', icon: Megaphone },
-  { name: 'Gespräch', icon: Mic }, { name: 'Mikroskop', icon: Microscope },
-  { name: 'Bildschirm', icon: Monitor }, { name: 'Maus', icon: Mouse },
-  { name: 'Melodie', icon: Music }, { name: 'Navigation', icon: Navigation },
-  { name: 'Netzwerk', icon: Network }, { name: 'Zeitung', icon: Newspaper },
-  { name: 'Nuss', icon: Nut }, { name: 'Weltraum', icon: Orbit },
-  { name: 'Paket', icon: Package }, { name: 'Kunst', icon: Paintbrush },
-  { name: 'Urlaub', icon: Palmtree }, { name: 'Büro', icon: Paperclip },
-  { name: 'Feier', icon: PartyPopper }, { name: 'Pfote', icon: PawPrint },
-  { name: 'Design', icon: PenTool }, { name: 'Stift', icon: PencilIcon },
-  { name: 'Anruf', icon: Phone }, { name: 'Sparen', icon: PiggyBank },
-  { name: 'Medizin', icon: Pill }, { name: 'Flugzeug', icon: Plane },
-  { name: 'Strom', icon: Plug }, { name: 'Tasche', icon: Pocket },
-  { name: 'Podcast', icon: Power }, { name: 'Druck', icon: Printer },
-  { name: 'Rätsel', icon: Puzzle }, { name: 'Strahlung', icon: Radiation },
-  { name: 'Radio', icon: Radio }, { name: 'Ratte', icon: Rat },
-  { name: 'Recycling', icon: Recycle }, { name: 'Weg', icon: Route },
-  { name: 'Maßstab', icon: Ruler }, { name: 'Speichern', icon: Save },
-  { name: 'Suchen', icon: Search }, { name: 'Schicken', icon: Send },
-  { name: 'Einstellung', icon: Settings }, { name: 'Teilen', icon: Share },
-  { name: 'Schiff', icon: Ship }, { name: 'Kleidung', icon: Shirt },
-  { name: 'Einkauf', icon: ShoppingBag }, { name: 'Warenkorb', icon: ShoppingCart },
-  { name: 'Schaufel', icon: Shovel }, { name: 'Alarm', icon: Siren },
-  { name: 'Handy', icon: Smartphone }, { name: 'Freude', icon: Smile },
-  { name: 'Lautsprecher', icon: Speaker }, { name: 'Pflanze', icon: Sprout },
-  { name: 'Arzt', icon: Stethoscope }, { name: 'Notiz', icon: StickyNote },
-  { name: 'Tisch', icon: Table }, { name: 'Tablet', icon: Tablet },
-  { name: 'Preis', icon: Tag }, { name: 'Zielscheibe', icon: Target },
-  { name: 'Zelt', icon: Tent }, { name: 'Code', icon: Terminal },
-  { name: 'Temperatur', icon: Thermometer }, { name: 'Ablehnung', icon: ThumbsDown },
-  { name: 'Zustimmung', icon: ThumbsUp }, { name: 'Eintritt', icon: Ticket },
-  { name: 'Dauer', icon: Timer }, { name: 'Wirbelsturm', icon: Tornado },
-  { name: 'Zug', icon: Train }, { name: 'Müll', icon: Trash },
-  { name: 'Sieg', icon: Trophy }, { name: 'LKW', icon: Truck },
-  { name: 'Fernseher', icon: Tv }, { name: 'Leute', icon: Users },
-  { name: 'Video', icon: Video }, { name: 'Geldbeutel', icon: Wallet },
-  { name: 'Wellen', icon: Waves }, { name: 'Kamera', icon: Webcam },
-  { name: 'Internet', icon: Wifi }, { name: 'Wein', icon: Wine }
+  { name: 'Schwert', icon: Sword, genres: ['fantasy', 'west'] },
+  { name: 'Schild', icon: Shield, genres: ['fantasy', 'space'] },
+  { name: 'Geist', icon: Ghost, genres: ['horror', 'fantasy'] },
+  { name: 'Burg', icon: Castle, genres: ['fantasy', 'horror'] },
+  { name: 'Berg', icon: Mountain, genres: ['fantasy', 'west'] },
+  { name: 'Wald', icon: Trees, genres: ['fantasy', 'horror'] },
+  { name: 'Feuer', icon: Flame, genres: ['horror', 'scifi'] },
+  { name: 'Totenkopf', icon: Skull, genres: ['horror', 'noir'] },
+  { name: 'Trank', icon: FlaskConical, genres: ['fantasy', 'scifi'] },
+  { name: 'Schlüssel', icon: Key, genres: ['noir', 'fantasy'] },
+  { name: 'Karte', icon: MapIcon, genres: ['fantasy', 'west'] },
+  { name: 'Kompass', icon: Compass, genres: ['west', 'space'] },
+  { name: 'Sonne', icon: Sun, genres: ['fantasy', 'west'] },
+  { name: 'Mond', icon: Moon, genres: ['horror', 'noir'] },
+  { name: 'Blitz', icon: Zap, genres: ['scifi', 'space'] },
+  { name: 'Vogel', icon: Bird, genres: ['fantasy', 'west'] },
+  { name: 'Fisch', icon: Fish, genres: ['fantasy', 'noir'] },
+  { name: 'Spur', icon: Footprints, genres: ['noir', 'west'] },
+  { name: 'Wolke', icon: Cloud, genres: ['scifi', 'space'] },
+  { name: 'Schnee', icon: Snowflake, genres: ['fantasy', 'horror'] },
+  { name: 'Herz', icon: Heart, genres: ['noir', 'fantasy'] },
+  { name: 'Gehirn', icon: Brain, genres: ['scifi', 'horror'] },
+  { name: 'Anker', icon: Anchor, genres: ['noir', 'fantasy'] },
+  { name: 'Hammer', icon: Hammer, genres: ['fantasy', 'west'] },
+  { name: 'Buch', icon: Book, genres: ['fantasy', 'noir'] },
+  { name: 'Auge', icon: Eye, genres: ['horror', 'noir'] },
+  { name: 'Edelstein', icon: Gem, genres: ['fantasy', 'noir'] },
+  { name: 'Geschenk', icon: Gift, genres: ['noir', 'fantasy'] },
+  { name: 'Bombe', icon: Bomb, genres: ['noir', 'scifi'] },
+  { name: 'Käfer', icon: Bug, genres: ['horror', 'scifi'] },
+  { name: 'Gewitter', icon: CloudLightning, genres: ['horror', 'space'] },
+  { name: 'Krone', icon: Crown, genres: ['fantasy', 'noir'] },
+  { name: 'Hund', icon: Dog, genres: ['west', 'noir'] },
+  { name: 'Tropfen', icon: Droplets, genres: ['fantasy', 'noir'] },
+  { name: 'Feder', icon: Feather, genres: ['fantasy', 'noir'] },
+  { name: 'Hand', icon: Hand, genres: ['noir', 'horror'] },
+  { name: 'Blatt', icon: Leaf, genres: ['fantasy', 'west'] },
+  { name: 'Magnet', icon: Magnet, genres: ['scifi', 'space'] },
+  { name: 'Rakete', icon: Rocket, genres: ['space', 'scifi'] },
+  { name: 'Muschel', icon: Shell, genres: ['fantasy', 'noir'] },
+  { name: 'Stern', icon: Star, genres: ['space', 'fantasy'] },
+  { name: 'Schirm', icon: Umbrella, genres: ['noir', 'horror'] },
+  { name: 'Uhr', icon: Watch, genres: ['noir', 'scifi'] },
+  { name: 'Wind', icon: Wind, genres: ['fantasy', 'west'] },
+  { name: 'Axt', icon: Axe, genres: ['fantasy', 'horror'] },
+  { name: 'Ambulanz', icon: Ambulance, genres: ['horror', 'noir'] },
+  { name: 'Baby', icon: Baby, genres: ['horror', 'fantasy'] },
+  { name: 'Banane', icon: Banana, genres: ['noir', 'scifi'] },
+  { name: 'Bier', icon: Beer, genres: ['west', 'noir'] },
+  { name: 'Glocke', icon: Bell, genres: ['fantasy', 'horror'] },
+  { name: 'Gefahr', icon: Biohazard, genres: ['scifi', 'horror'] },
+  { name: 'Knochen', icon: Bone, genres: ['horror', 'fantasy'] },
+  { name: 'Koffer', icon: Briefcase, genres: ['noir', 'scifi'] },
+  { name: 'Foto', icon: Camera, genres: ['noir', 'horror'] },
+  { name: 'Auto', icon: Car, genres: ['noir', 'scifi'] },
+  { name: 'Katze', icon: Cat, genres: ['horror', 'noir'] },
+  { name: 'Kirsche', icon: Cherry, genres: ['noir', 'fantasy'] },
+  { name: 'Film', icon: Clapperboard, genres: ['noir', 'scifi'] },
+  { name: 'Zeit', icon: Clock, genres: ['scifi', 'noir'] },
+  { name: 'Kaffee', icon: Coffee, genres: ['noir', 'scifi'] },
+  { name: 'Münzen', icon: Coins, genres: ['noir', 'west'] },
+  { name: 'Baustelle', icon: Construction, genres: ['scifi', 'noir'] },
+  { name: 'Keks', icon: Cookie, genres: ['fantasy', 'horror'] },
+  { name: 'Technik', icon: Cpu, genres: ['scifi', 'space'] },
+  { name: 'Ziel', icon: Crosshair, genres: ['noir', 'scifi'] },
+  { name: 'DNA', icon: Dna, genres: ['scifi', 'horror'] },
+  { name: 'Tür', icon: DoorOpen, genres: ['horror', 'fantasy'] },
+  { name: 'Trommel', icon: Drum, genres: ['fantasy', 'west'] },
+  { name: 'Sport', icon: Dumbbell, genres: ['scifi', 'noir'] },
+  { name: 'Ei', icon: Egg, genres: ['fantasy', 'scifi'] },
+  { name: 'Fabrik', icon: Factory, genres: ['scifi', 'noir'] },
+  { name: 'Rummel', icon: FerrisWheel, genres: ['horror', 'noir'] },
+  { name: 'Dokument', icon: FileText, genres: ['noir', 'scifi'] },
+  { name: 'Flagge', icon: Flag, genres: ['west', 'space'] },
+  { name: 'Taschenlampe', icon: Flashlight, genres: ['horror', 'noir'] },
+  { name: 'Blume', icon: Flower, genres: ['fantasy', 'noir'] },
+  { name: 'Essen', icon: ForkKnife, genres: ['noir', 'west'] },
+  { name: 'Trauer', icon: Frown, genres: ['horror', 'noir'] },
+  { name: 'Tanken', icon: Fuel, genres: ['scifi', 'west'] },
+  { name: 'Gaming', icon: Gamepad2, genres: ['scifi', 'space'] },
+  { name: 'Urteil', icon: Gavel, genres: ['noir', 'west'] },
+  { name: 'Brille', icon: Glasses, genres: ['noir', 'scifi'] },
+  { name: 'Welt', icon: Globe, genres: ['space', 'scifi'] },
+  { name: 'Traube', icon: Grape, genres: ['fantasy', 'noir'] },
+  { name: 'Gitarre', icon: Guitar, genres: ['noir', 'west'] },
+  { name: 'Pakt', icon: Handshake, genres: ['noir', 'fantasy'] },
+  { name: 'Musik', icon: Headphones, genres: ['scifi', 'noir'] },
+  { name: 'Vergangenheit', icon: History, genres: ['fantasy', 'noir'] },
+  { name: 'Zuhause', icon: Home, genres: ['horror', 'noir'] },
+  { name: 'Krankenhaus', icon: Hospital, genres: ['horror', 'noir'] },
+  { name: 'Hotel', icon: Hotel, genres: ['noir', 'horror'] },
+  { name: 'Eis', icon: IceCream, genres: ['fantasy', 'horror'] },
+  { name: 'Bild', icon: Image, genres: ['noir', 'fantasy'] },
+  { name: 'Unendlich', icon: Infinity, genres: ['scifi', 'space'] },
+  { name: 'Spielen', icon: Joystick, genres: ['scifi', 'space'] },
+  { name: 'Tippen', icon: Keyboard, genres: ['scifi', 'noir'] },
+  { name: 'Licht', icon: Lamp, genres: ['noir', 'horror'] },
+  { name: 'Denkmal', icon: Landmark, genres: ['fantasy', 'noir'] },
+  { name: 'Laptop', icon: Laptop, genres: ['scifi', 'space'] },
+  { name: 'Einfangen', icon: Lasso, genres: ['west', 'fantasy'] },
+  { name: 'Wissen', icon: LibraryIcon, genres: ['fantasy', 'noir'] },
+  { name: 'Rettung', icon: LifeBuoy, genres: ['noir', 'space'] },
+  { name: 'Idee', icon: LightbulbIcon, genres: ['scifi', 'fantasy'] },
+  { name: 'Reise', icon: Luggage, genres: ['noir', 'space'] },
+  { name: 'Brief', icon: Mail, genres: ['noir', 'fantasy'] },
+  { name: 'Standort', icon: MapPin, genres: ['noir', 'scifi'] },
+  { name: 'Medaille', icon: Medal, genres: ['fantasy', 'west'] },
+  { name: 'Durchsage', icon: Megaphone, genres: ['noir', 'scifi'] },
+  { name: 'Gespräch', icon: Mic, genres: ['noir', 'scifi'] },
+  { name: 'Mikroskop', icon: Microscope, genres: ['scifi', 'horror'] },
+  { name: 'Bildschirm', icon: Monitor, genres: ['scifi', 'space'] },
+  { name: 'Maus', icon: Mouse, genres: ['scifi', 'noir'] },
+  { name: 'Melodie', icon: Music, genres: ['noir', 'fantasy'] },
+  { name: 'Navigation', icon: Navigation, genres: ['space', 'scifi'] },
+  { name: 'Netzwerk', icon: Network, genres: ['scifi', 'space'] },
+  { name: 'Zeitung', icon: Newspaper, genres: ['noir', 'scifi'] },
+  { name: 'Nuss', icon: Nut, genres: ['fantasy', 'west'] },
+  { name: 'Weltraum', icon: Orbit, genres: ['space', 'scifi'] },
+  { name: 'Paket', icon: Package, genres: ['noir', 'scifi'] },
+  { name: 'Kunst', icon: Paintbrush, genres: ['noir', 'fantasy'] },
+  { name: 'Urlaub', icon: Palmtree, genres: ['noir', 'fantasy'] },
+  { name: 'Büro', icon: Paperclip, genres: ['noir', 'scifi'] },
+  { name: 'Feier', icon: PartyPopper, genres: ['noir', 'horror'] },
+  { name: 'Pfote', icon: PawPrint, genres: ['fantasy', 'west'] },
+  { name: 'Design', icon: PenTool, genres: ['scifi', 'noir'] },
+  { name: 'Stift', icon: PencilIcon, genres: ['noir', 'fantasy'] },
+  { name: 'Anruf', icon: Phone, genres: ['noir', 'scifi'] },
+  { name: 'Sparen', icon: PiggyBank, genres: ['noir', 'west'] },
+  { name: 'Medizin', icon: Pill, genres: ['scifi', 'horror'] },
+  { name: 'Flugzeug', icon: Plane, genres: ['space', 'noir'] },
+  { name: 'Strom', icon: Plug, genres: ['scifi', 'space'] },
+  { name: 'Tasche', icon: Pocket, genres: ['noir', 'west'] },
+  { name: 'Podcast', icon: Power, genres: ['scifi', 'space'] },
+  { name: 'Druck', icon: Printer, genres: ['noir', 'scifi'] },
+  { name: 'Rätsel', icon: Puzzle, genres: ['noir', 'horror'] },
+  { name: 'Strahlung', icon: Radiation, genres: ['scifi', 'horror'] },
+  { name: 'Radio', icon: Radio, genres: ['noir', 'scifi'] },
+  { name: 'Ratte', icon: Rat, genres: ['horror', 'noir'] },
+  { name: 'Recycling', icon: Recycle, genres: ['scifi', 'noir'] },
+  { name: 'Weg', icon: Route, genres: ['west', 'space'] },
+  { name: 'Maßstab', icon: Ruler, genres: ['scifi', 'noir'] },
+  { name: 'Speichern', icon: Save, genres: ['scifi', 'space'] },
+  { name: 'Suchen', icon: Search, genres: ['noir', 'scifi'] },
+  { name: 'Schicken', icon: Send, genres: ['space', 'scifi'] },
+  { name: 'Einstellung', icon: Settings, genres: ['scifi', 'space'] },
+  { name: 'Teilen', icon: Share, genres: ['noir', 'scifi'] },
+  { name: 'Schiff', icon: Ship, genres: ['noir', 'fantasy'] },
+  { name: 'Kleidung', icon: Shirt, genres: ['noir', 'fantasy'] },
+  { name: 'Einkauf', icon: ShoppingBag, genres: ['noir', 'scifi'] },
+  { name: 'Warenkorb', icon: ShoppingCart, genres: ['scifi', 'noir'] },
+  { name: 'Schaufel', icon: Shovel, genres: ['horror', 'west'] },
+  { name: 'Alarm', icon: Siren, genres: ['noir', 'horror'] },
+  { name: 'Handy', icon: Smartphone, genres: ['scifi', 'noir'] },
+  { name: 'Freude', icon: Smile, genres: ['fantasy', 'noir'] },
+  { name: 'Lautsprecher', icon: Speaker, genres: ['scifi', 'noir'] },
+  { name: 'Pflanze', icon: Sprout, genres: ['fantasy', 'scifi'] },
+  { name: 'Arzt', icon: Stethoscope, genres: ['horror', 'noir'] },
+  { name: 'Notiz', icon: StickyNote, genres: ['noir', 'scifi'] },
+  { name: 'Tisch', icon: Table, genres: ['noir', 'fantasy'] },
+  { name: 'Tablet', icon: Tablet, genres: ['scifi', 'space'] },
+  { name: 'Preis', icon: Tag, genres: ['noir', 'fantasy'] },
+  { name: 'Zielscheibe', icon: Target, genres: ['noir', 'scifi'] },
+  { name: 'Zelt', icon: Tent, genres: ['fantasy', 'west'] },
+  { name: 'Code', icon: Terminal, genres: ['scifi', 'space'] },
+  { name: 'Temperatur', icon: Thermometer, genres: ['scifi', 'horror'] },
+  { name: 'Ablehnung', icon: ThumbsDown, genres: ['noir', 'horror'] },
+  { name: 'Zustimmung', icon: ThumbsUp, genres: ['noir', 'fantasy'] },
+  { name: 'Eintritt', icon: Ticket, genres: ['noir', 'horror'] },
+  { name: 'Dauer', icon: Timer, genres: ['scifi', 'noir'] },
+  { name: 'Wirbelsturm', icon: Tornado, genres: ['horror', 'west'] },
+  { name: 'Zug', icon: Train, genres: ['noir', 'west'] },
+  { name: 'Müll', icon: Trash, genres: ['noir', 'scifi'] },
+  { name: 'Sieg', icon: Trophy, genres: ['fantasy', 'space'] },
+  { name: 'LKW', icon: Truck, genres: ['noir', 'west'] },
+  { name: 'Fernseher', icon: Tv, genres: ['noir', 'scifi'] },
+  { name: 'Leute', icon: Users, genres: ['noir', 'horror'] },
+  { name: 'Video', icon: Video, genres: ['noir', 'scifi'] },
+  { name: 'Geldbeutel', icon: Wallet, genres: ['noir', 'west'] },
+  { name: 'Wellen', icon: Waves, genres: ['fantasy', 'horror'] },
+  { name: 'Kamera', icon: Webcam, genres: ['scifi', 'horror'] },
+  { name: 'Internet', icon: Wifi, genres: ['scifi', 'space'] },
+  { name: 'Wein', icon: Wine, genres: ['noir', 'fantasy'] }
 ];
 
 // ==========================================
@@ -268,15 +359,19 @@ const App = () => {
     const shuffledIndices = shuffleArray(allIndices);
     const shuffledCategories = shuffleArray(CATEGORIES);
 
-    const newDice = shuffledCategories.map((cat, i) => ({
-      id: i,
-      category: cat,
-      iconIndex: shuffledIndices[i],
-      locked: false,
-      flipped: false,
-      note: '',
-      genres: cat.defaultGenres || []
-    }));
+    const newDice = shuffledCategories.map((cat, i) => {
+      const iconIdx = shuffledIndices[i];
+      const iconData = STORY_ICONS[iconIdx];
+      return {
+        id: i,
+        category: cat,
+        iconIndex: iconIdx,
+        locked: false,
+        flipped: false,
+        note: '',
+        genres: [...(iconData.genres || [])]
+      };
+    });
     setDice(newDice);
   }, []);
 
@@ -421,9 +516,9 @@ const App = () => {
         setSeedInput("SEED KOPIERT!");
         setTimeout(() => setSeedInput(seed), 2000);
       }
-    } catch (err) { 
+    } catch (err) {
       console.error("Error copying seed: ", err);
-}
+    }
     document.body.removeChild(textArea);
   };
 
@@ -451,7 +546,7 @@ const App = () => {
 
     setTimeout(() => {
       setDice(prevDice => {
-      // Nur verfügbare Kategorien (nicht gesperrte) neu mischen
+        // Nur verfügbare Kategorien (nicht gesperrte) neu mischen
         const lockedCategoriesLabels = prevDice.filter(d => d.locked).map(d => d.category.label);
         const availableCategories = CATEGORIES.filter(c => !lockedCategoriesLabels.includes(c.label));
         const shuffledAvailableCategories = shuffleArray(availableCategories);
@@ -469,13 +564,15 @@ const App = () => {
             return die; // Kategorie und Icon bleiben erhalten
           }
           const nextCategory = shuffledAvailableCategories[catPointer++];
+          const nextIconIdx = shuffledAvailableIcons[iconPointer++];
+          const nextIconData = STORY_ICONS[nextIconIdx];
           return {
             ...die,
-            iconIndex: shuffledAvailableIcons[iconPointer++],
+            iconIndex: nextIconIdx,
             flipped: false,
             note: '',
             category: nextCategory,
-            genres: nextCategory.defaultGenres || []
+            genres: [...(nextIconData.genres || [])]
           };
         });
       });
@@ -522,7 +619,7 @@ const App = () => {
     const blob = new Blob([JSON.stringify(dice, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `plot-tiles-v4-83-0.json`;
+    link.download = `plot-tiles-v4-84-0.json`;
     link.click();
     setIsMenuOpen(false);
   };
@@ -566,7 +663,7 @@ const App = () => {
       <header className="w-full max-w-2xl flex justify-between items-center mb-8 mt-6 px-4 text-left">
         <div className="text-left">
           <h1 className="text-4xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white to-slate-500 uppercase leading-none">Plot Tiles</h1>
-          <p className="text-slate-400 text-sm font-bold tracking-widest uppercase mt-2">v4.83.0 • Sternenwächter</p>
+          <p className="text-slate-400 text-sm font-bold tracking-widest uppercase mt-2">v4.84.0 • Pfad der Genres</p>
         </div>
         <div className="flex gap-2">
           <button
@@ -644,7 +741,7 @@ const App = () => {
             </div>
 
             <div className="mt-auto pt-6 border-t border-slate-800 text-center">
-              <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-loose text-left">v4.83.0 • Plot Tiles Engine</p>
+              <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest leading-loose text-left">v4.84.0 • Plot Tiles Engine</p>
             </div>
           </div>
         </>
@@ -896,7 +993,7 @@ const App = () => {
       </div>
 
       {/* GLOBAL FOOTER */}
-      <footer className="mt-auto py-12 text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase text-center opacity-50 text-left">v4.83.0 • Plot Tiles • Sternenwächter</footer>
+      <footer className="mt-auto py-12 text-slate-600 text-[10px] font-bold tracking-[0.2em] uppercase text-center opacity-50 text-left">v4.84.0 • Plot Tiles • Pfad der Genres</footer>
 
       {/* CSS STYLES & ANIMATIONS */}
       <style>{`
